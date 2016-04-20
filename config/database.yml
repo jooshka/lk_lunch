@@ -31,6 +31,9 @@ development:
   # the same name as the operating system user that initialized the database.
   #username: lk_lunch
 
+  username: 'postgres'
+  password: '1'
+
   # The password associated with the postgres role (username).
   #password:
 

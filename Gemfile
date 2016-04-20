@@ -49,3 +49,4 @@ end
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'slim-rails'
+gem 'activeadmin', github: 'activeadmin'

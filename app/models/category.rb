@@ -16,6 +16,7 @@ class Category < ActiveRecord::Base
 
   validates :title,
             presence: true,
+            uniqueness: true,
             length: {
               minimum: MIN_CATEGORY_TITLE_LENGTH,
               maximum: MAX_CATEGORY_TITLE_LENGTH

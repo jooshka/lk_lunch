@@ -17,10 +17,14 @@ class Product < ActiveRecord::Base
 
   validates :name,
             presence: true,
+            uniqueness: true,
             length: {
               minimum: MIN_PRODUCT_NAME_LENGTH,
               maximum: MAX_PRODUCT_NAME_LENGTH
             }
+
+  validates :category,
+            presence: true
 
   before_validation do |product|
     product.name.try(:strip!)

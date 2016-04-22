@@ -53,9 +53,11 @@ $menu_today_color:     #9AC24D;
   background-color: $menu_color;
   margin:10px 5px;
   padding: 40px 5px;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.5);
   &:hover {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
     margin-top: 0;
+    margin-bottom: 15px;
   }
   > a {
     text-decoration: none;

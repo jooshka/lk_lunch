@@ -1,10 +1,28 @@
-h1
-  | Home#index
-- if user_signed_in?
-  |  Здравствуйте, 
-  = current_user.email
-  = link_to 'Выйти', destroy_user_session_path, :method => :delete
-- else
-  = link_to 'Войти', new_user_session_path
-  |  или 
-  = link_to 'Зарегистрироваться', new_user_registration_path
+div.menu_controls
+  = link_to root_path(:date => @start_date - 1.week) do
+    span.glyphicon.glyphicon-backward
+    |  Previous week
+
+  = link_to root_path do
+    span.glyphicon.glyphicon-screenshot
+    |  Current week 
+
+  = link_to root_path(:date => @start_date + 1.week) do
+    | Next week 
+    span.glyphicon.glyphicon-forward
+
+br
+
+div.menu_week
+  - (0..6).each do |n|
+    - day = @start_date + n.day
+    div.menu_day class=('menu_today' if day==Date.current)
+      = link_to root_path do
+        h3.text-center
+          = day.strftime("%A")
+        h4.text-center
+          span
+            =' day.day
+          span
+            = day.strftime("%B")
+        img src="http://www.clipartoday.com/_thumbs/011/food/drink_beverage_soda_pop/lunch121_005754_tnb.png"

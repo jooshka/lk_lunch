@@ -1,0 +1,49 @@
+doctype html
+html
+
+  head
+    title
+      | Smart Lunches
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+    div.content
+      div.container.pageheader
+        div.header.pull-left
+          h2.brand-name
+            = link_to 'SMART LUNCHES', root_path
+        div.header.pull-right
+          - if user_signed_in?
+            ul.list-inline
+              li
+                = current_user.email
+              li
+                = link_to content_tag(:span,' Log out', class:"glyphicon glyphicon-log-out"), destroy_user_session_path, :method=>:delete
+          - else
+            ul.list-inline
+              li
+                = link_to new_user_session_path do
+                  span.glyphicon.glyphicon-log-in  Log in
+              li
+                = link_to new_user_registration_path do
+                  span.glyphicon.glyphicon-user  Sign up
+
+      div.container
+        p.alert
+          = notice
+        p.alert
+          = alert
+
+        = yield
+
+    div.footer
+      div
+        | Lunch Ordering SaaS,
+        br
+        | RubyOnRails training project
+      div
+        | &copy; 2016  
+        br
+        | jooshka@mail.ru

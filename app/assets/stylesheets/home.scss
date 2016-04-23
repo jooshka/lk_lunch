@@ -46,16 +46,15 @@ $menu_today_color:     #9AC24D;
 
 .menu_week {
   display:flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .menu_day {
   background-color: $menu_color;
   margin:10px 5px;
   padding: 40px 5px;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.5);
   &:hover {
-    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     margin-top: 0;
     margin-bottom: 15px;
   }
@@ -70,10 +69,21 @@ $menu_today_color:     #9AC24D;
 }
 
 .menu_today {
-  background-color: $menu_today_color;
+  background-color: $menu_today_color !important;
 }
 
 .menu_controls {
   display:flex;
-  justify-content: space-between;
+  justify-content: space-around;
+}
+
+.menu_detail {
+  display:flex;
+  justify-content: space-around;
+  background-color: $menu_color;
+}
+
+.menu_detail_category {
+  margin:10px 5px;
+  padding: 40px 30px;
 }

@@ -15,14 +15,14 @@ br
 
 div.menu_week
   - (0..6).each do |n|
-    - day = @start_date + n.day
-    div.menu_day class=('menu_today' if day==Date.current)
-      = link_to root_path do
+    - menu_date = @start_date + n.day
+    div.menu_day class=('menu_today' if menu_date==Date.current)
+      = link_to detail_path(:date => menu_date) do
         h3.text-center
-          = day.strftime("%A")
+          = menu_date.strftime("%A")
         h4.text-center
           span
-            =' day.day
+            =' menu_date.day
           span
-            = day.strftime("%B")
+            = menu_date.strftime("%B")
         img src="http://www.clipartoday.com/_thumbs/011/food/drink_beverage_soda_pop/lunch121_005754_tnb.png"

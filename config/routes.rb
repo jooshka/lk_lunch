@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get  'detail' => 'home#detail'
   devise_for :users
   ActiveAdmin.routes(self)
 

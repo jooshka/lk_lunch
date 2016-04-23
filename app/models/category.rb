@@ -3,13 +3,15 @@
 # Table name: categories
 #
 #  id         :integer          not null, primary key
-#  title      :string
+#  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
 class Category < ActiveRecord::Base
   has_many :products, dependent: :destroy
+  has_many :menus, through: :products, dependent: :destroy
+  has_many :orders, through: :products, dependent: :destroy
 
   MIN_CATEGORY_TITLE_LENGTH = 5
   MAX_CATEGORY_TITLE_LENGTH = 50

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421012953) do
+ActiveRecord::Schema.define(version: 20160423083707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,15 +32,35 @@ ActiveRecord::Schema.define(version: 20160421012953) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "categories", ["title"], name: "index_categories_on_title", unique: true, using: :btree
 
+  create_table "menus", force: :cascade do |t|
+    t.date     "date",                                null: false
+    t.integer  "product_id"
+    t.decimal  "price",      precision: 15, scale: 2, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "menus", ["product_id"], name: "index_menus_on_product_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "menu_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "orders", ["menu_id"], name: "index_orders_on_menu_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
   create_table "products", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -67,5 +87,8 @@ ActiveRecord::Schema.define(version: 20160421012953) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "menus", "products"
+  add_foreign_key "orders", "menus"
+  add_foreign_key "orders", "users"
   add_foreign_key "products", "categories"
 end

@@ -19,7 +19,7 @@ class Menu < ActiveRecord::Base
 
   validates :price,
             presence: true, 
-            numericality: { greater_than: 0 }
+            numericality: true
 
   validates :product, presence: true
 

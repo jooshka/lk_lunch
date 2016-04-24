@@ -35,9 +35,10 @@ ActiveRecord::Schema.define(version: 20160424124434) do
     t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "show_order"
+    t.integer  "show_order", null: false
   end
 
+  add_index "categories", ["show_order"], name: "index_categories_on_show_order", unique: true, using: :btree
   add_index "categories", ["title"], name: "index_categories_on_title", unique: true, using: :btree
 
   create_table "menus", force: :cascade do |t|

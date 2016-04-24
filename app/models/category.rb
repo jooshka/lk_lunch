@@ -27,7 +27,8 @@ class Category < ActiveRecord::Base
 
   validates :show_order,
             presence: true,
-            numericality: true
+            uniqueness: true,
+            numericality: { only_integer: true }
 
   default_scope { order('show_order') }
 

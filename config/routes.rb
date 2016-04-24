@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+
   root 'home#index'
   get  'detail' => 'home#detail'
+  resources :menus, only: :create
+  
   devise_for :users
   ActiveAdmin.routes(self)
 

@@ -9,4 +9,4 @@ div.menu_detail class=('menu_today' if menu_date==Date.current)
             - if item.category == category
               tr
                 td= item.product.name
-                td= item.price
+                td= "%.2f" % item.price

@@ -6,6 +6,7 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  show_order :integer
 #
 
 require 'rails_helper'

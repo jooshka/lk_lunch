@@ -15,9 +15,8 @@ class Order < ActiveRecord::Base
   has_one :product, through: :menu
   has_one :category, through: :menu
 
-  validates :user,
-            presence: true
+  validates :user, presence: true
 
-  validates :menu,
-            presence: true
+  validates :menu, presence: true
+
 end

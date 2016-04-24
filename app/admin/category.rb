@@ -1,10 +1,11 @@
 ActiveAdmin.register Category do
-  permit_params :title
+  permit_params :title, :show_order
 
   index do
     selectable_column
     id_column
     column :title
+    column :show_order
     actions
   end
 
@@ -13,6 +14,7 @@ ActiveAdmin.register Category do
   form do |f|
     f.inputs "Admin Details" do
       f.input :title
+      f.input :show_order
     end
     f.actions
   end

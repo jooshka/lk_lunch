@@ -18,9 +18,15 @@ class Menu < ActiveRecord::Base
   validates :date, presence: true
 
   validates :price,
-            presence: true, 
-            numericality: true
+            presence: true,
+            numericality: { greater_than_or_equal_to: 0 }
 
   validates :product, presence: true
+
+  validates_uniqueness_of :product_id, scope: :date
+
+  before_validation do |menu|
+    menu.price = menu.price.try(:round, 2)
+  end
 
 end

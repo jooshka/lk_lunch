@@ -27,6 +27,8 @@ class Product < ActiveRecord::Base
 
   validates :category, presence: true
 
+  default_scope { order('name') }
+
   before_validation do |product|
     product.name.try(:strip!)
   end

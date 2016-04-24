@@ -6,6 +6,7 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  show_order :integer
 #
 
 class Category < ActiveRecord::Base
@@ -23,6 +24,12 @@ class Category < ActiveRecord::Base
               minimum: MIN_CATEGORY_TITLE_LENGTH,
               maximum: MAX_CATEGORY_TITLE_LENGTH
             }
+
+  validates :show_order,
+            presence: true,
+            numericality: true
+
+  default_scope { order('show_order') }
 
   before_validation do |category|
     category.title.try(:strip!)

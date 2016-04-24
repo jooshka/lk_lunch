@@ -58,3 +58,6 @@ gem 'bootstrap-sass'
 gem 'slim-rails'
 gem 'activeadmin', github: 'activeadmin'
 gem 'annotate'
+gem 'hirb'
+gem 'simple_form'
+

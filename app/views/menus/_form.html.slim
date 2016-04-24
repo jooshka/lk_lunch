@@ -1,0 +1,7 @@
+= simple_form_for menu, html: { class: 'form-inline'} do |f|
+
+  = f.hidden_field :date, :value => Date.current 
+  = f.association :product, collection: Product.all
+  = f.input :price, input_html: { min: 0 }
+
+  = f.submit 'Add to menu'

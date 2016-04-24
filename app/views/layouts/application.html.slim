@@ -13,11 +13,15 @@ html
       = render 'layouts/header'
 
       div.container
+
         - if notice
-          div.alert
+          br
+          div.alert.alert-success
             = notice
+
         - if alert
-          div.alert
+          br
+          div.alert.alert-danger
             = alert
 
         br

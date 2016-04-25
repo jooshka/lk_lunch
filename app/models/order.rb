@@ -7,6 +7,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  date       :date             not null
+#  sum        :decimal(15, 2)   not null
 #
 
 class Order < ActiveRecord::Base

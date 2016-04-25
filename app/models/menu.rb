@@ -29,4 +29,8 @@ class Menu < ActiveRecord::Base
     menu.price = menu.price.try(:round, 2)
   end
 
+  def self.by_date_category(menu_date, category)
+    Menu.joins(:product).where(:date => menu_date, 'products.category' => category)
+  end
+
 end

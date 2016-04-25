@@ -1,12 +1,11 @@
 div.menu_detail class=('menu_today' if menu_date==Date.current)
-  - Category.all.each do |category|
+  - menus.keys.each do |category|
     div.menu_detail_category class=('menu_today' if menu_date==Date.current)
       h4.text-center
         = category.title
       table.table
         tbody
-          - menu.each do |item|
-            - if item.category == category
+          - menus[category].each do |item|
               tr
                 td= item.product.name
-                td= "%.2f" % item.price
+                td.text-right= "%.2f" % item.price

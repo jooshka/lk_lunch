@@ -6,7 +6,12 @@ class HomeController < ApplicationController
 
   def detail
     @menu_date = valid_date(params[:date])
-    @menu = Menu.where(:date => @menu_date)
+
+    @menus = {}
+    Category.all.each do |category|
+      @menus[category] = Menu.by_date_category(@menu_date, category)
+    end
+
   end
 
   private

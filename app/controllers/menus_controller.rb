@@ -4,10 +4,11 @@ class MenusController < ApplicationController
     @menu = Menu.new(menu_params)
     respond_to do |format|
       if @menu.save
-        format.html { redirect_to detail_path, notice: "Menu item was successfully added." }
+        flash[:notice] = "Menu item was successfully added."
       else 
-        format.html { redirect_to detail_path, alert: @menu.errors.full_messages.join(', ') }
+        flash[:alert] = @menu.errors.full_messages.join(', ')
       end
+      format.html { redirect_to detail_path }
     end
   end
 

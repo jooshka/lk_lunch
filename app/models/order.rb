@@ -12,11 +12,22 @@
 
 class Order < ActiveRecord::Base
   belongs_to :user
+  has_many :order_items, dependent: :destroy
+
+  before_save :set_sum!
 
   validates :user, presence: true
 
   validates :date, presence: true
 
+  validates :order_items,
+            presence: true
+
   validates_uniqueness_of :user_id, scope: :date
 
+  private
+
+    def set_sum!
+      self.sum = order_items.map(&:price).sum
+    end
 end

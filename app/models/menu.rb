@@ -13,7 +13,6 @@
 class Menu < ActiveRecord::Base
   belongs_to :product
   has_one :category, through: :product
-  has_many :orders, dependent: :destroy
 
   validates :date, presence: true
 

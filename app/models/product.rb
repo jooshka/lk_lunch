@@ -12,7 +12,6 @@
 class Product < ActiveRecord::Base
   belongs_to :category
   has_many :menus, dependent: :destroy
-  has_many :orders, through: :menus, dependent: :destroy
 
   MIN_PRODUCT_NAME_LENGTH = 5
   MAX_PRODUCT_NAME_LENGTH = 150

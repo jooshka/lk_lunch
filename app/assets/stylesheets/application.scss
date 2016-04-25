@@ -14,3 +14,43 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "*";
+
+$header_height:        80px;
+$footer_height:        60px;
+$header_color:         #A8D9E9;
+
+@mixin header_height {
+  height: $header_height;
+  line-height: $header_height;
+}
+
+.content {
+  min-height: calc(100vh - 60px);
+}
+
+.footer {
+  height: $footer_height;
+  background: gray;
+  display:flex;
+  justify-content: center;
+  padding-top: 5px;
+  > div {
+    width: 30%;
+    text-align: center;
+  }
+}
+
+.pageheader {
+  background: $header_color;
+}
+
+.header {
+  @include header_height;
+}
+
+.brand-name {
+  @include header_height;
+  > a {
+    text-decoration: none;
+  }
+}

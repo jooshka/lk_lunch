@@ -14,20 +14,19 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items, dependent: :destroy
 
-  before_save :set_sum!
+  before_create :set_sum!
 
   validates :user, presence: true
 
   validates :date, presence: true
 
-  validates :order_items,
-            presence: true
-
   validates_uniqueness_of :user_id, scope: :date
+
+  scope :date, -> (date) { where(:date => date) }
 
   private
 
     def set_sum!
-      self.sum = order_items.map(&:price).sum
+      self.sum = order_items.joins(:menu).pluck(:price).sum
     end
 end

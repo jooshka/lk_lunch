@@ -12,6 +12,7 @@ class HomeController < ApplicationController
       @menus[category] = Menu.date_category(@date, category)
     end
 
+    @orders = current_user.orders.date(@date);
   end
 
   private

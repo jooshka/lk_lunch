@@ -12,6 +12,7 @@
 class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :menu
+  has_one :product, through: :menu
 
   validates :menu, presence: true
 

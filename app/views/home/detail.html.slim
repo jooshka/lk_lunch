@@ -8,3 +8,20 @@ br
 - if @date == Date.current
   div.text-center
     = render 'menus/form', menu: Menu.new
+
+hr
+
+- if @orders.empty?
+
+  h5
+    | You don't order on this date.
+  - if @date == Date.current
+    h3.text-center
+      =link_to "Create order", new_order_path
+
+- else
+  h5
+    | Your order on this date:
+  = render 'orders/show', order: @orders.first
+
+hr

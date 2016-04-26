@@ -1,4 +1,7 @@
 ActiveAdmin.register Category do
+
+  menu priority: 2
+
   permit_params :title, :show_order
 
   index do

@@ -1,21 +1,27 @@
 ActiveAdmin.register Order do
-  permit_params :user_id, :menu_id
+
+  menu priority: 5
+
+  permit_params :date, :user_id, :sum
 
   index do
     selectable_column
     id_column
+    column :date
     column :user_id
-    column :menu_id
+    column :sum
     actions
   end
 
+  filter :date
   filter :user_id
-  filter :menu_id
+  filter :sum
 
   form do |f|
     f.inputs "Admin Details" do
-      f.input :user_id
-      f.input :menu_id
+      f.input :date
+      f.input :user_id, :as => :select, :collection => User.all.map{|u| [u.email, u.id]}
+      f.input :sum
     end
     f.actions
   end

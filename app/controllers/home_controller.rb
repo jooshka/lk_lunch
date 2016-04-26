@@ -5,11 +5,11 @@ class HomeController < ApplicationController
   end
 
   def detail
-    @menu_date = valid_date(params[:date])
+    @date = valid_date(params[:date])
 
     @menus = {}
     Category.all.each do |category|
-      @menus[category] = Menu.by_date_category(@menu_date, category)
+      @menus[category] = Menu.date_category(@date, category)
     end
 
   end

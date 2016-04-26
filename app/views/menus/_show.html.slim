@@ -1,6 +1,6 @@
-div.menu_detail class=('menu_today' if menu_date==Date.current)
+div.menu_detail class=('menu_today' if date==Date.current)
   - menus.keys.each do |category|
-    div.menu_detail_category class=('menu_today' if menu_date==Date.current)
+    div.menu_detail_category class=('menu_today' if date==Date.current)
       h4.text-center
         = category.title
       table.table

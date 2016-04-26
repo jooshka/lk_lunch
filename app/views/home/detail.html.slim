@@ -1,10 +1,10 @@
 h5
-  = @menu_date.strftime("%A, %d %B")
+  = @date.strftime("%A, %d %B")
 
-= render 'menus/show', menus: @menus, menu_date: @menu_date
+= render 'menus/show', menus: @menus, date: @date
 
 br
 
-- if @menu_date == Date.current
+- if @date == Date.current
   div.text-center
     = render 'menus/form', menu: Menu.new

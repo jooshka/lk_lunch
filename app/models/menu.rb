@@ -13,6 +13,7 @@
 class Menu < ActiveRecord::Base
   belongs_to :product
   has_one :category, through: :product
+  has_many :order_items, dependent: :destroy
 
   validates :date, presence: true
 
@@ -28,8 +29,6 @@ class Menu < ActiveRecord::Base
     menu.price = menu.price.try(:round, 2)
   end
 
-  def self.by_date_category(menu_date, category)
-    Menu.joins(:product).where(:date => menu_date, 'products.category' => category)
-  end
+  scope :date_category, -> (date, category) { joins(:product).where(:date => date, 'products.category' => category) }
 
 end

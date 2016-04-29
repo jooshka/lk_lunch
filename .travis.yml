@@ -8,5 +8,4 @@ script:
   - bundle exec rake db:migrate --trace
   - bundle exec rspec
 before_script:
-  - cp config/database.travis.yml config/database.yml
   - psql -c 'create database lk_lunch_test' -U postgres

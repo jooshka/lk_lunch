@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe MenuController, type: :controller do
+RSpec.describe MenusController, type: :controller do
 
 end

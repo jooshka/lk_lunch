@@ -22,8 +22,8 @@ RSpec.describe Category, type: :model do
 
     it 'category title must be unique' do
       some_title = Faker::Lorem.words(rand(2..3)).join(' ')
-      expect(create(:category, title: some_title)).to be_valid
-      expect(build(:category, title: some_title)).not_to be_valid
+      expect(create(:category, title: some_title, show_order: 1)).to be_valid
+      expect(build( :category, title: some_title, show_order: 2)).not_to be_valid
     end
 
     it do

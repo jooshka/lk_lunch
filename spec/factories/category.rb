@@ -11,5 +11,6 @@
 FactoryGirl.define do
   factory :category do
     title { Faker::Lorem.words(rand(2..3)).join(' ') }
+    show_order 1
   end
 end

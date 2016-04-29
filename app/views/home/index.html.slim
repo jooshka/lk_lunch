@@ -1,28 +1,35 @@
-div.menu_controls
-  = link_to root_path(:date => @start_date - 1.week) do
-    span.glyphicon.glyphicon-backward
-    |  Previous week
-
-  = link_to root_path do
-    span.glyphicon.glyphicon-screenshot
-    |  Current week 
-
-  = link_to root_path(:date => @start_date + 1.week) do
-    | Next week 
-    span.glyphicon.glyphicon-forward
+.row.text-center
+  .col-md-4
+    = link_to root_path(:date => @start_date - 1.week) do
+      span.glyphicon.glyphicon-backward
+      |  Previous week
+  .col-md-4
+    = link_to root_path do
+      span.glyphicon.glyphicon-screenshot
+      |  Current week 
+  .col-md-4
+    = link_to root_path(:date => @start_date + 1.week) do
+      | Next week 
+      span.glyphicon.glyphicon-forward
 
 br
 
-div.menu_week
+.week
   - (0..6).each do |n|
     - menu_date = @start_date + n.day
-    div.menu_day class=('menu_today' if menu_date==Date.current)
+    .day class=('today' if menu_date==Date.current)
       = link_to detail_path(:date => menu_date) do
-        h3.text-center
-          = menu_date.strftime("%A")
         h4.text-center
+          = menu_date.strftime("%A")
+        h5.text-center
           span
             =' menu_date.day
           span
             = menu_date.strftime("%B")
-        img src="http://www.clipartoday.com/_thumbs/011/food/drink_beverage_soda_pop/lunch121_005754_tnb.png"
+        = image_tag("lunch.png", class:'img-thumbnail')
+        br
+        h5.text-center
+          - if Menu.day(menu_date).blank?
+            span.glyphicon.glyphicon-ban-circle
+          - else
+            span.glyphicon.glyphicon-cutlery

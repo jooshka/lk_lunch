@@ -1,19 +1,52 @@
-div.container.pageheader
-  div.header.pull-left
-    h2.brand-name
-      = link_to 'SMART LUNCHES', root_path
-  div.header.pull-right
-    - if user_signed_in?
-      ul.list-inline
-        li
-          = current_user.email
-        li
-          = link_to content_tag(:span,' Log out', class:"glyphicon glyphicon-log-out"), destroy_user_session_path, :method=>:delete
-    - else
-      ul.list-inline
-        li
-          = link_to new_user_session_path do
-            span.glyphicon.glyphicon-log-in  Log in
-        li
-          = link_to new_user_registration_path do
-            span.glyphicon.glyphicon-user  Sign up
+nav.navbar.navbar-default role="navigation" 
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button" 
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand href="#"  SMART LUNCHES
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        - if user_signed_in?
+          li =link_to root_path do
+            span.glyphicon.glyphicon-calendar  Week days
+        li.dropdown
+          a.dropdown-toggle data-toggle="dropdown" href="#" 
+            span.glyphicon.glyphicon-cog  Actions
+            b.caret
+          ul.dropdown-menu
+            li =link_to 'Change profile', root_path
+            li =link_to 'Register new organisation', root_path
+            li =link_to 'Browse users', root_path
+      ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li
+            = link_to root_path do
+              span.glyphicon.glyphicon-user
+                =<
+                = current_user.email
+          li= link_to content_tag(:span,' Log out', class:"glyphicon glyphicon-log-out"), destroy_user_session_path, :method=>:delete
+        - else
+          li
+            = link_to new_user_session_path do
+              span.glyphicon.glyphicon-log-in  Log in
+          li
+            = link_to new_user_registration_path do
+              span.glyphicon.glyphicon-user  Sign up
+
+.container
+  .row
+    ol.breadcrumb
+      = render_breadcrumbs
+
+    - if notice
+      div.alert.alert-success
+        = notice
+
+    - if alert
+      div.alert.alert-danger
+        = alert
+
+br

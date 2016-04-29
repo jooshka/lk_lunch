@@ -13,19 +13,6 @@ html
       = render 'layouts/header'
 
       div.container
-
-        - if notice
-          br
-          div.alert.alert-success
-            = notice
-
-        - if alert
-          br
-          div.alert.alert-danger
-            = alert
-
-        br
-
         = yield
 
     = render 'layouts/footer'

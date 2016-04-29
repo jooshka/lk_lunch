@@ -1,11 +1,16 @@
-div.menu_detail class=('menu_today' if date==Date.current)
-  - menus.keys.each do |category|
-    div.menu_detail_category class=('menu_today' if date==Date.current)
-      h4.text-center
-        = category.title
-      table.table
-        tbody
-          - menus[category].each do |item|
-              tr
-                td= item.product.name
-                td.text-right= "%.2f" % item.price
+.panel.panel-warning
+  .panel-heading
+    p.text-center
+      span.glyphicon.glyphicon-cutlery  Menu:
+  .panel-body
+    .menu
+      - Category.all.each do |category|
+        div
+          h5.text-center
+            strong= category.title
+          table.table
+            tbody
+              - Menu.day_category(date, category).each do |item|
+                tr
+                  td= item.product.name
+                  td.text-right= "%.2f" % item.price

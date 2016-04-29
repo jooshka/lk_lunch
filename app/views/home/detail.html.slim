@@ -1,27 +1,55 @@
-h5
-  = @date.strftime("%A, %d %B")
+.row
+  h4
+    = @date.strftime("%A, %e %B")
 
-= render 'menus/show', menus: @menus, date: @date
+  = render 'menus/show', menus: @menus, date: @date
 
-br
+  br
 
-- if @date == Date.current
-  div.text-center
-    = render 'menus/form', menu: Menu.new
+  .text-center
+    = render 'menus/form', menu: Menu.new, date: @date
 
 hr
 
-- if @orders.empty?
+.row
+  - if @orders.empty?
 
-  h5
-    | You don't order on this date.
-  - if @date == Date.current
+    h5
+      | No your order for this day.
     h3.text-center
-      =link_to "Create order", new_order_path
+      =link_to "Create order", new_order_path(:date => @date), class: 'btn btn-lg btn-primary'
+    br
+    br
 
-- else
-  h5
-    | Your order on this date:
-  = render 'orders/show', order: @orders.first
+  - else
+    .panel.panel-info
+      .panel-heading
+        | Your order:
+      .panel-body
+        = render 'orders/show', order: @orders.first
 
-hr
+.row
+  - unless @total_order.empty?
+    hr
+    h4 Total orders:
+    .row
+      .col-md-6
+        .panel.panel-info
+          .panel-heading
+            | By categories:
+          .panel-body
+            = render 'orders/show_total', items: @total_order
+
+      .col-md-6
+        .panel.panel-info
+          .panel-heading
+            | By users:
+          .panel-body
+            - User.all.each do |user|
+              - user.orders.day(@date).each do |order|
+                h4
+                  span.label.label-info
+                    = user.email
+                = render 'orders/show', order: order
+              hr
+br

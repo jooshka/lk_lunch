@@ -60,4 +60,5 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'annotate'
 gem 'hirb'
 gem 'simple_form'
+gem "breadcrumbs_on_rails"
 

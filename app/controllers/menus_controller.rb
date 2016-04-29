@@ -8,7 +8,7 @@ class MenusController < ApplicationController
       else 
         flash[:alert] = @menu.errors.full_messages.join(', ')
       end
-      format.html { redirect_to detail_path }
+      format.html { redirect_to detail_path(:date => @menu.date) }
     end
   end
 

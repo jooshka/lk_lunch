@@ -15,6 +15,7 @@ ActiveAdmin.register Category do
   filter :title
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Admin Details" do
       f.input :title
       f.input :show_order

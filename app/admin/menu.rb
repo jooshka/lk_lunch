@@ -18,6 +18,7 @@ ActiveAdmin.register Menu do
   filter :price
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Admin Details" do
       f.input :date
       f.input :product_id, :as => :select, :collection => Product.all

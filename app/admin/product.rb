@@ -16,6 +16,7 @@ ActiveAdmin.register Product do
   filter :category_id
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Admin Details" do
       f.input :category_id, :as => :select, :collection => Category.all
       f.input :name

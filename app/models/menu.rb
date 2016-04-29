@@ -11,7 +11,7 @@
 #
 
 class Menu < ActiveRecord::Base
-  belongs_to :product
+  belongs_to :product, required: true
   has_one :category, through: :product
   has_many :order_items, dependent: :destroy
 
@@ -21,14 +21,24 @@ class Menu < ActiveRecord::Base
             presence: true,
             numericality: { greater_than_or_equal_to: 0 }
 
-  validates :product, presence: true
-
   validates_uniqueness_of :product_id, scope: :date
+
+  before_save do
+    if order_items.any?
+      errors.add(:menu, "could not be updated.")
+      false
+    end
+  end
 
   before_validation do |menu|
     menu.price = menu.price.try(:round, 2)
   end
 
-  scope :date_category, -> (date, category) { joins(:product).where(:date => date, 'products.category' => category) }
+  scope :day, -> (date) { where(:date => date) }
+
+  scope :day_category, -> (date, category) {
+    joins(:product)
+   .where(:date => date, 'products.category' => category)
+  }
 
 end

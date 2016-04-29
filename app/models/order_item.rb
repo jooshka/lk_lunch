@@ -11,11 +11,37 @@
 
 class OrderItem < ActiveRecord::Base
   belongs_to :order
-  belongs_to :menu
-  has_one :product, through: :menu
+  belongs_to :menu, required: true
+  has_one :product,  through: :menu
+  has_one :category, through: :menu
 
-  validates :menu, presence: true
+  before_save do
+    unless self.new_record?
+      errors.add(:order_item, "could not be updated.")
+      false
+    end
+  end
 
-  validates :order, presence: true
+  before_destroy do
+    if order
+      errors.add(:order_item, "could not be destroyed.")
+      false
+    end
+  end
+
+  scope :category_ordered, -> {
+    joins(:category)
+   .order('categories.show_order')
+  }
+
+  scope :day_total, -> (date) {
+    joins(:order)
+   .joins(:menu)
+   .joins(:product)
+   .select('menus.id as menu_id, count(*) as total_count, sum(menus.price) as total_sum')
+   .where('orders.date' => date)
+   .group('menus.id','products.name')
+   .order('products.name')
+  }
 
 end

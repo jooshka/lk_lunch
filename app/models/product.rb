@@ -10,8 +10,9 @@
 #
 
 class Product < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, required: true
   has_many :menus, dependent: :destroy
+  has_many :order_items, through: :menus
 
   MIN_PRODUCT_NAME_LENGTH = 5
   MAX_PRODUCT_NAME_LENGTH = 150
@@ -24,7 +25,12 @@ class Product < ActiveRecord::Base
               maximum: MAX_PRODUCT_NAME_LENGTH
             }
 
-  validates :category, presence: true
+  before_save do
+    if category_id_changed? && order_items.any?
+      errors.add(:product, "category could not updated")
+      false
+    end
+  end
 
   default_scope { order('name') }
 

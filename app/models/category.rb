@@ -11,7 +11,8 @@
 
 class Category < ActiveRecord::Base
   has_many :products, dependent: :destroy
-  has_many :menus, through: :products, dependent: :destroy
+  has_many :menus, through: :products
+  has_many :order_items, through: :menus
 
   MIN_CATEGORY_TITLE_LENGTH = 5
   MAX_CATEGORY_TITLE_LENGTH = 50

@@ -11,22 +11,28 @@
 #
 
 class Order < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, required: true
   has_many :order_items, dependent: :destroy
+  accepts_nested_attributes_for :order_items
 
-  before_create :set_sum!
-
-  validates :user, presence: true
-
-  validates :date, presence: true
+  validates_presence_of :date,
+                        :order_items
 
   validates_uniqueness_of :user_id, scope: :date
 
-  scope :date, -> (date) { where(:date => date) }
+  validate :order_items_rules
+
+  before_save 'self.sum = order_items.map(&:menu).map(&:price).sum'
+
+  scope :day, -> (date) { where(:date => date) }
 
   private
 
-    def set_sum!
-      self.sum = order_items.joins(:menu).pluck(:price).sum
+    def order_items_rules
+      dates = order_items.map { |item| item.menu.date if item.menu }
+      errors.add(:order, "must include menu items on order date") unless dates.uniq == [ date ]
+
+      
     end
+
 end

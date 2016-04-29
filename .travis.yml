@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - "1.27.0"
+env:
+  - DB=postgresql
+script:
+  - export RAILS_ENV=test
+  - bundle exec rake db:migrate --trace
+  - bundle exec rspec
+before_script:
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database lk_lunch_test' -U postgres

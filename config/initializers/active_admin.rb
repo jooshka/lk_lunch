@@ -272,3 +272,10 @@ ActiveAdmin.setup do |config|
   #
   # config.include_default_association_filters = true
 end
+
+class ActiveAdmin::BaseController
+  rescue_from ActiveRecord::RecordNotDestroyed, with: :show_errors
+  def show_errors
+    redirect_to collection_url, alert: resource.class.name + ' could not be destroyed.'
+  end
+end

@@ -1,0 +1,13 @@
+table.table
+  thead
+    tr
+      th Product
+      th.text-right Price
+  tbody
+    - order.order_items.category_ordered.each do |item|
+      tr
+        td= item.product.name
+        td.text-right= "%.2f" % item.menu.price
+  tfoot
+    tr
+      td.text-right colspan="2" = "%.2f" % order.sum

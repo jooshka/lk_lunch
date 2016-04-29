@@ -1,0 +1,14 @@
+= simple_form_for order do |f|
+
+  = f.hidden_field :date, :value => date
+
+  - Category.all.each do |category|
+
+    = f.simple_fields_for :order_items do |item|
+
+      = item.association :menu \
+        , label: category.title \
+        , collection: Menu.day_category(@date, category) \
+        , label_method: lambda { |m| "#{m.product.name} #{m.price}" }
+
+  = f.submit 'Create order', class:'btn btn-lg btn-primary'

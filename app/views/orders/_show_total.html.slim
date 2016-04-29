@@ -1,0 +1,25 @@
+table.table
+  thead
+    tr
+      th Product
+      th.text-center Count
+      th.text-right Price
+      th.text-right Sum
+  tbody
+    - Category.all.each do |category|
+      tr
+        td colspan="4"
+          h4
+            span.label.label-info= category.title
+      - items.each do |item|
+        - if item.product.category == category
+          tr
+            td             = item.product.name
+            td.text-center = item.total_count
+            td.text-right  = "%.2f" % (item.total_sum / item.total_count)
+            td.text-right  = "%.2f" % item.total_sum
+  tfoot
+    tr
+      td
+      td.text-center            = items.map(&:total_count).sum
+      td.text-right colspan="2" = "%.2f" % items.map(&:total_sum).sum

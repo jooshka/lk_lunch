@@ -1,0 +1,8 @@
+h4
+  | New order for 
+  = @date.strftime("%A, %e %B")
+  | :
+  br
+  br
+
+= render 'form', order: @order, date: @date

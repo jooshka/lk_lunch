@@ -15,14 +15,12 @@ class Order < ActiveRecord::Base
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items
 
-  validates_presence_of :date,
-                        :order_items
-
+  validates_presence_of :date, :order_items
   validates_uniqueness_of :user_id, scope: :date
-
   validate :order_items_rules
 
   before_save 'self.sum = order_items.map(&:menu).map(&:price).sum'
+  before_destroy :mark_items_for_destruction , prepend: true
 
   scope :day, -> (date) { where(:date => date) }
 
@@ -33,6 +31,10 @@ class Order < ActiveRecord::Base
       errors.add(:order, "must include menu items on order date") unless dates.uniq == [ date ]
 
       
+    end
+
+    def mark_items_for_destruction
+      order_items.map { |item| item.mark_for_destruction}
     end
 
 end

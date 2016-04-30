@@ -16,14 +16,19 @@ class OrderItem < ActiveRecord::Base
   has_one :category, through: :menu
 
   before_save do
-    unless self.new_record?
-      errors.add(:order_item, "could not be updated.")
+    unless order
+      errors.add(:order_item, "could not be saved")
       false
     end
   end
 
+  before_update do
+    errors.add(:order_item, "could not be updated")
+    false
+  end
+
   before_destroy do
-    if order
+    unless marked_for_destruction?
       errors.add(:order_item, "could not be destroyed.")
       false
     end
